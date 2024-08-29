@@ -12,6 +12,7 @@ import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
 import java.net.URI;
+import java.util.concurrent.TimeUnit;
 
 @Service
 public class WikimediaProducer {
@@ -32,7 +33,7 @@ public class WikimediaProducer {
         this.kafkaTemplate = kafkaTemplate;
     }
 
-    public void sendMessage(String message){
+    public void sendMessage(){
 
         //To read realtime data from wikimedia ,we use event source
 
@@ -43,6 +44,13 @@ public class WikimediaProducer {
                 .http(URI.create(url)))
         ).build();
 
+        eventSource.start();
 
+        try {
+            TimeUnit.MINUTES.sleep(10);
+        } catch (InterruptedException e) {
+            LOGGER.info("Interrupted while waiting ==========>"+e.getMessage());
+            throw new RuntimeException(e);
+        }
     }
 }
