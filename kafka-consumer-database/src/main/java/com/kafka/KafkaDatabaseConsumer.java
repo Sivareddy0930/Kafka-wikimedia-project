@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class KafkaDatabaseConsumer {
-    // Implement Kafka consumer logic here
+    // Implement Kafka consumer logic here to consume messages from the producer
 
     private static final Logger LOGGER = LoggerFactory.getLogger(KafkaDatabaseConsumer.class);
 
